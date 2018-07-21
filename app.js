@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 
 //CONNECT TO THE DATABASE
+mongoose.connect('mongodb://GaelleM:S1mplon@ds129541.mlab.com:29541/mementodb', { useNewUrlParser: true }); 
 mongoose.set('debug', true); //permet d'avoir le détail des opérations directement dans la console
 mongoose.Promise = global.Promise;
 
