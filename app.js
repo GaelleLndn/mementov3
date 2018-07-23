@@ -1,12 +1,13 @@
 const express = require('express');
 const app = express();
+const path = require('path')
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 
 //CONNECT TO THE DATABASE
-mongoose.connect('mongodb://GaelleM:S1mplon@ds129541.mlab.com:29541/mementodb', { useNewUrlParser: true }); 
+mongoose.connect('mongodb://@ds129541.mlab.com:29541/mementodb', { useNewUrlParser: true }); 
 mongoose.set('debug', true); //permet d'avoir le détail des opérations directement dans la console
 mongoose.Promise = global.Promise;
 
@@ -32,6 +33,15 @@ app.use((req, res, next) => {
         return res.status(200).json({})
     };
     next();
+})
+
+
+//Static path to dist
+app.use(express.static(path.join(__dirname, 'front/dist/front')));
+ 
+//Catch all other routes and return to the index file
+app.get('*', (req, res) =>{
+   res.sendFile(path.join(__dirname, 'front/dist/front/index.html'));
 })
 
 
